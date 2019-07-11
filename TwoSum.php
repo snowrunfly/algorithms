@@ -7,6 +7,7 @@
  */
 
 /**
+ * Time: n*log(n)
  * @param Integer[] $nums
  * @param Integer $target
  * @return Integer[]
