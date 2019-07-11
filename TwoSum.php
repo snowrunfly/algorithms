@@ -7,26 +7,52 @@
  */
 
 /**
- * Time: n*log(n)
+ * Time: n^2
  * @param Integer[] $nums
  * @param Integer $target
  * @return Integer[]
  */
-function twoSum($nums, $target) {
-    //if(!$target) return null;
+function twoSum($nums, $target)
+{
     $len = count($nums);
-    for($i=0; $i<$len; $i++){
-        $r = $target - $nums[$i];
-        for($j=$i+1; $j<$len; $j++){
-            if($r == $nums[$j]){
+    for ($i = 0; $i < $len - 1; $i++) {
+        for ($j = $i + 1; $j < $len; $j++) {
+            if ($target == ($nums[$i] + $nums[$j])) {
                 return [$i, $j];
             }
         }
     }
+
     return null;
 }
 
-$nums = [1, 3, 2, 7, 11, 15];
-$target = 9;
+/**
+ * Time: n, Space: n
+ * @param Integer[] $nums
+ * @param Integer $target
+ * @return Integer[]
+ */
+function twoSum2($nums, $target)
+{
+    $len = count($nums);
+    $map = array_flip($nums);
 
-var_dump(twoSum($nums, $target));
+    for ($i = 0; $i < $len; $i++) {
+        $r = $target - $nums[$i];
+        if (array_key_exists($r, $map) && $map[$r] != $i) {
+            return [$i, $map[$r]];
+        }
+
+    }
+    return null;
+}
+
+
+$nums = [3, 2, 4];
+$target = 6;
+
+$start = microtime(true);
+var_dump(twoSum($nums, $target), microtime(true) - $start);
+
+$start = microtime(true);
+var_dump(twoSum2($nums, $target),  microtime(true) - $start);
